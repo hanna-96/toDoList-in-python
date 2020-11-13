@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+"web.py" = "==0.61"
+pony = "*"
+
+[requires]
+python_version = "3.8"
+
+[dev-packages]
+pytest = "*"
+paste = "*"
+pytest-env = "*"
