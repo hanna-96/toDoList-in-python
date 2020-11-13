@@ -63,8 +63,13 @@ def get_list_items(List, Item):
     # def get_by_id(List, id):
     #     return select(i for i in Item if i.id == id).first()
 
+@db_session
+def update_list(List, id,name):
+    List[id].name = name
+
 
 @db_session
 def delete_list_by_id(List, id):
     specific_list = List.select(lambda specific_list: specific_list.id == id)
     specific_list.delete()
+

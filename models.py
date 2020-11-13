@@ -3,7 +3,7 @@ from pony  import orm
 # from lists import def_users_entity
 from lists import def_lists_entity
 from items import def_items_entity
-from create_list import creating_lists,creating_items,get_list_items,delete_list_by_id
+from create_list import creating_lists,creating_items,get_list_items,delete_list_by_id,update_list
 # from lists_items import def_lists_items
 # db = Database()
 db = orm.Database()
@@ -65,4 +65,5 @@ items_class = def_items_entity(db,orm,list_class)
 db.generate_mapping(create_tables=True)
 # creating_lists(list_class,items_class)
 # get_list_items(list_class,items_class)
-delete_list_by_id(list_class,2)
+# delete_list_by_id(list_class,2)
+update_list(list_class,1,'solve_algo')
