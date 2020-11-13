@@ -53,8 +53,18 @@ def creating_items(List, Item):
 
 # get  todo lists for each item
 @db_session()
-def get_list_items(List,Item):
+def get_list_items(List, Item):
     print(
-        json.dumps({'data':[i.lists.to_dict() for i in Item.select()]})
+        json.dumps({'data': [i.lists.to_dict() for i in Item.select()]})
     )
 # to_dict() will give us a todo for each item
+
+    # @db_session
+    # def get_by_id(List, id):
+    #     return select(i for i in Item if i.id == id).first()
+
+
+@db_session
+def delete_list_by_id(List, id):
+    specific_list = List.select(lambda specific_list: specific_list.id == id)
+    specific_list.delete()
