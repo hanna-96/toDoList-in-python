@@ -3,9 +3,8 @@ import json
 
 from faker import Faker
 fake = Faker()
+
 # creating lists
-
-
 @db_session()
 def creating_lists(List, Item, amount=10):
     for _ in range(amount):
@@ -20,28 +19,6 @@ def creating_lists(List, Item, amount=10):
         #     totalItems=1,
         #     )
         creating_items(List, Item)
-# @db_session()
-# def creating_lists(List):
-#     lists = set()
-#     all_lists = list(lists)
-#     for l in all_lists:List(type=l)
-        # List(
-        #     name='MondayToDo',
-        #     numberOfCompletedItems=0,
-        #     totalItems=2,
-        #     )
-        # List(
-        #     name='beforeBirthday',
-        #     numberOfCompletedItems=1,
-        #     totalItems=1,
-        #     )
-        # List(
-        #     name='party',
-        #     numberOfCompletedItems=1,
-        #     totalItems=1,
-        #     )
-        # creating_items(List, Item)
-
 
 @db_session()
 def creating_items(List, Item):
@@ -49,6 +26,21 @@ def creating_items(List, Item):
     for l in lists:
         Item(title=fake.name(), description=fake.name(), completed='true', lists=l)
         # Item(title='sleep', description='have some rest', completed='false',lists = l)
+
+
+@db_session()
+def get_list(List,id):
+    # specific_list = List.select(lambda specific_list: specific_list.id == id)
+    # selected_list = List[id]
+    # all_lists = List.select()
+   print(json.dumps({'data': [[l.to_dict()] for l in List.select(lambda l: l.id == id)]})) 
+
+
+@db_session
+def get_all_lists(List):
+    print(
+        json.dumps({'data': [[l.to_dict()] for l in List.select()]})
+    )
 
 
 # get  todo lists for each item
@@ -59,9 +51,7 @@ def get_list_items(List, Item):
     )
 # to_dict() will give us a todo for each item
 
-    # @db_session
-    # def get_by_id(List, id):
-    #     return select(i for i in Item if i.id == id).first()
+
 
 @db_session
 def update_list(List, id,name):
