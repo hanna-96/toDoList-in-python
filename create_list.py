@@ -6,19 +6,27 @@ fake = Faker()
 
 # creating lists
 @db_session()
-def creating_lists(List, Item, amount=10):
-    for _ in range(amount):
-        List(
-            name=fake.name(),
-            numberOfCompletedItems=fake.random_int(0, 10),
-            totalItems=fake.random_int(0, 20),
+def creating_lists(List, Item, name, numberOfCompletedItems, totalItems):
+    # for _ in range(amount):
+    List(
+        name=name,
+        numberOfCompletedItems=numberOfCompletedItems,
+        totalItems=totalItems,
         )
         # List(
         #     name='party',
         #     numberOfCompletedItems=1,
         #     totalItems=1,
         #     )
-        creating_items(List, Item)
+    creating_items(List, Item)
+
+# @db_session()
+# def creating_items(List, Item,name,description,completed):
+#     lists = List.select()
+#     for l in lists:
+#         Item(title=name, description=description, completed=completed, lists=l)
+#         # Item(title='sleep', description='have some rest', completed='false',lists = l)
+
 
 @db_session()
 def creating_items(List, Item):
@@ -28,12 +36,13 @@ def creating_items(List, Item):
         # Item(title='sleep', description='have some rest', completed='false',lists = l)
 
 
-@db_session()
-def get_list(List,id):
-    # specific_list = List.select(lambda specific_list: specific_list.id == id)
-    # selected_list = List[id]
-    # all_lists = List.select()
-   print(json.dumps({'data': [[l.to_dict()] for l in List.select(lambda l: l.id == id)]})) 
+# @db_session()
+# def get_list(List, id):
+#     # specific_list = List.select(lambda specific_list: specific_list.id == id)
+#     # selected_list = List[id]
+#     # all_lists = List.select()
+#     print(json.dumps({'data': [[l.to_dict()]
+#                                for l in List.select(lambda l: l.id == id)]}))
 
 
 @db_session
@@ -43,18 +52,22 @@ def get_all_lists(List):
     )
 
 
+@db_session()
+def get_list(List, Item, id):
+        print(json.dumps({'todo_list': [[l.to_dict()] for l in List.select(lambda l: l.id == id)]}),
+        json.dumps({'items': [i.to_dict() for i in List[id].items]})),
+# to_dict() will give us a todo for each item
+
+
 # get  todo lists for each item
 @db_session()
 def get_list_items(List, Item):
     print(
         json.dumps({'data': [i.lists.to_dict() for i in Item.select()]})
     )
-# to_dict() will give us a todo for each item
-
-
 
 @db_session
-def update_list(List, id,name):
+def update_list(List, id, name):
     List[id].name = name
 
 
