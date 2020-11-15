@@ -3,7 +3,7 @@ import os
 import web
 
 from models import list_class, items_class
-from create_list import get_all_lists, get_list
+from create_list import get_all_lists, get_list, creating_lists, update_list, delete_list_by_id
 
 ##
 # Define our routes:
@@ -17,20 +17,10 @@ urls = (
     # https://webpy.org/cookbook/url_handling#capture-parameters
     '/lists/(.+)', 'list'
 )
-
-
-# testing for myself
-# urls = ("/.*", "hello")
-
-# class hello:
-#     def GET(self):
-#         return 'Hello, world!'
-
 #
 # Define global classes for handling requests
 ##
 
-# list_class = def_lists_entity(db,orm)
 class root:
     def GET(self):
         web.header('Content-Type', 'application/json')
@@ -42,7 +32,6 @@ class root:
 
 class lists:
     def GET(self):
-        # pass
         all_lists = get_all_lists(list_class)
         return json.dumps(all_lists)
 
@@ -55,9 +44,20 @@ class list:
 
     # Data can be read via: web.data()
     # https://webpy.org/cookbook/postbasic
-    # def POST(self):
-    #    print(web.data())
-    #    pass
+    def POST(self, name, numberOfCompletedItems, totalItems):
+        print(web.data())
+        new_list = creating_lists(
+            list_class, items_class, name, numberOfCompletedItems, totalItems)
+        return json.dumps(new_list)
+
+    def PUT(self, id, name):
+        print(web.data())
+        updated_list = update_list(list_class, id, name)
+        return json.dumps(updated_list)
+
+    def DELETE(self, id, name):
+        print(web.data())
+        delete_list_by_id(list_class, id)
 
 
 app = web.application(urls, globals())

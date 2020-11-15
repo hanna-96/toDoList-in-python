@@ -15,17 +15,16 @@ db.bind(provider='sqlite', filename='database.sqlite', create_db=True)
 
 list_class = def_lists_entity(db,orm)
 items_class = def_items_entity(db,orm,list_class)
-# lists_items_class = def_lists_items(db,orm,list_class,items_class)
-# get_list_items(list_class,items_class)
+
 # Mapping entities to the database tables
 db.generate_mapping(create_tables=True)
-# creating_lists(list_class,items_class,'solve_algo',2,2)
-# creating_lists(list_class,items_class,'project',2,5)
-# creating_lists(list_class,items_class,'Christmas_preperation',0,1)
+# creating_lists(list_class,items_class,'solve_algo',2)
+# creating_lists(list_class,items_class,'project',1,3)
+# creating_lists(list_class,items_class,'Christmas_preperation',1,1)
 
 # get_list_items(list_class,items_class)
-# delete_list_by_id(list_class,2)
-# update_list(list_class,1,'solve_algo')
+# delete_list_by_id(list_class,1)
+update_list(list_class,2,'solve_algo',5,10)
 # get_list(list_class,1)
 # get_by_id(list_class,1)
 # get_all_lists(list_class)

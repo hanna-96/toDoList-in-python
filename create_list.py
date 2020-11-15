@@ -6,44 +6,22 @@ fake = Faker()
 
 # creating lists
 @db_session()
-def creating_lists(List, Item, name, numberOfCompletedItems, totalItems):
-    # for _ in range(amount):
+def creating_lists(List, Item, name, totalItems,numberOfCompletedItems = '0' ):
     List(
         name=name,
         numberOfCompletedItems=numberOfCompletedItems,
         totalItems=totalItems,
         )
-        # List(
-        #     name='party',
-        #     numberOfCompletedItems=1,
-        #     totalItems=1,
-        #     )
     creating_items(List, Item)
 
-# @db_session()
-# def creating_items(List, Item,name,description,completed):
-#     lists = List.select()
-#     for l in lists:
-#         Item(title=name, description=description, completed=completed, lists=l)
-#         # Item(title='sleep', description='have some rest', completed='false',lists = l)
-
-
 @db_session()
-def creating_items(List, Item):
+def creating_items(List, Item,completed = False):
     lists = List.select()
     for l in lists:
-        Item(title=fake.name(), description=fake.name(), completed='true', lists=l)
-        # Item(title='sleep', description='have some rest', completed='false',lists = l)
-
-
-# @db_session()
-# def get_list(List, id):
-#     # specific_list = List.select(lambda specific_list: specific_list.id == id)
-#     # selected_list = List[id]
-#     # all_lists = List.select()
-#     print(json.dumps({'data': [[l.to_dict()]
-#                                for l in List.select(lambda l: l.id == id)]}))
-
+        # num = l.totalItems
+        # while num > 0:
+        Item(title=fake.name(), description=fake.name(),completed = completed, lists=l)
+            # num-=1
 
 @db_session
 def get_all_lists(List):
@@ -67,8 +45,12 @@ def get_list_items(List, Item):
     )
 
 @db_session
-def update_list(List, id, name):
+def update_list(List, id, name,numberOfCompletedItems,totalItems):
     List[id].name = name
+    List[id].numberOfCompletedItems = numberOfCompletedItems
+    List[id].totalItems = totalItems
+
+
 
 
 @db_session
