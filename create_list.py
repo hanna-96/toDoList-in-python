@@ -18,10 +18,10 @@ def creating_lists(List, Item, name, totalItems,numberOfCompletedItems = '0' ):
 def creating_items(List, Item,completed = False):
     lists = List.select()
     for l in lists:
-        # num = l.totalItems
-        # while num > 0:
-        Item(title=fake.name(), description=fake.name(),completed = completed, lists=l)
-            # num-=1
+        if len(l.items) == 0:
+            for _ in range(l.totalItems):
+                Item(title=fake.name(), description=fake.name(),completed = completed, lists=l)
+            
 
 @db_session
 def get_all_lists(List):
