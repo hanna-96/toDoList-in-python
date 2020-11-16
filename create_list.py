@@ -45,11 +45,11 @@ def get_list_items(List, Item):
     )
 
 @db_session
-def update_list(List, id, name,numberOfCompletedItems,totalItems):
+def update_list(List, id, name,totalItems,numberOfCompletedItems):
     List[id].name = name
-    List[id].numberOfCompletedItems = numberOfCompletedItems
     List[id].totalItems = totalItems
-
+    List[id].numberOfCompletedItems = numberOfCompletedItems
+    
 
 
 
